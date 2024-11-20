@@ -1,0 +1,27 @@
+<div class="menu-display">
+  <h1>Menu</h1>
+
+  <div class="categories">
+    <button
+      *ngFor="let category of categories"
+      (click)="selectCategory(category)"
+      [class.active]="category === selectedCategory"
+    >
+      {{ category.name }}
+    </button>
+  </div>
+
+  <div class="menu-items">
+    <h2>{{ selectedCategory?.name || 'Select a Category' }}</h2>
+    <div *ngIf="selectedCategory?.items?.length; else noItems">
+      <div *ngFor="let item of selectedCategory?.items" class="menu-item">
+        <h3>{{ item.name }}</h3>
+        <p>{{ item.description }}</p>
+        <span>{{ item.price | currency }}</span>
+      </div>
+    </div>
+    <ng-template #noItems>
+      <p>No items available in this category.</p>
+    </ng-template>
+  </div>
+</div>
