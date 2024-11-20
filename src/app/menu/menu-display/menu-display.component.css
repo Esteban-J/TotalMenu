@@ -1,61 +1,171 @@
-.menu-display {
-    padding: 20px;
-    font-family: Arial, sans-serif;
-  }
-  
-  h1 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .categories {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-bottom: 20px;
-  }
-  
-  .categories button {
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    background-color: #f4f4f4;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .categories button.active,
-  .categories button:hover {
-    background-color: #6200ea;
-    color: white;
-  }
-  
-  .menu-items {
-    text-align: center;
-  }
-  
-  .menu-item {
-    margin: 10px 0;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    background-color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
-  
-  .menu-item h3 {
-    margin: 0;
-    font-size: 20px;
-  }
-  
-  .menu-item p {
-    margin: 5px 0;
-    color: #666;
-  }
-  
-  .menu-item span {
-    font-weight: bold;
-    color: #6200ea;
-  }
-  
+/* Contenedor principal */
+.menu-display-container {
+  display: flex;
+  height: 100vh;
+  font-family: Arial, sans-serif;
+}
+
+/* Sección izquierda: Pedido */
+.order-section {
+  width: 40%;
+  background-color: #502274; /* Color púrpura */
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 10px;
+}
+
+.logo-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  background-color: #d1c4e9;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.total-summary {
+  background-color: white;
+  color: black;
+  padding: 10px;
+  border-radius: 5px;
+}
+
+.order-list {
+  flex-grow: 1;
+  overflow-y: auto;
+  background-color: white;
+  color: black;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.order-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  background-color: #f3e5f5;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.item-details {
+  flex: 1;
+}
+
+.item-actions button {
+  margin-left: 5px;
+}
+
+.additional-notes textarea {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+}
+
+.order-actions {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cancel-btn {
+  background-color: red;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  border: none;
+}
+
+.buy-btn {
+  background-color: green;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  border: none;
+}
+
+/* Sección derecha: Menú */
+.menu-section {
+  width: 60%;
+  background-color: #673ab7;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  gap: 10px;
+}
+
+.menu-header {
+  display: flex;
+  justify-content: flex-start; /* Alinea el nombre de la categoría seleccionada a la izquierda */
+  align-items: center;
+  gap: 10px; /* Añadir un espacio entre el nombre de la categoría seleccionada y las categorías */
+}
+
+.category-name {
+  width: 60%;
+  text-align: center;
+}
+
+.selected-category {
+  flex: 1;
+  font-size: 24px; /* Tamaño de la fuente para el nombre de la categoría seleccionada */
+}
+
+.menu-categories {
+  display: flex;
+  justify-content: flex-start; /* Alinea las categorías a la izquierda */
+  gap: 10px; /* Ajusta la separación entre las categorías */
+  flex-wrap: nowrap; /* Evita que las categorías se muevan a la siguiente línea */
+}
+
+.menu-category {
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 5px;
+  white-space: nowrap; /* Impide que el texto de la categoría se divida en varias líneas */
+}
+
+.menu-category.active {
+  background-color: #ffd700; /* Amarillo */
+}
+
+.menu-items {
+  flex-grow: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 10px;
+  overflow-y: auto;
+}
+
+.item-card {
+  background-color: white;
+  color: black;
+  border-radius: 5px;
+  padding: 10px;
+  text-align: center;
+}
+
+.add-item-btn {
+  background-color: #673ab7;
+  color: white;
+  border: none;
+  border-radius: 50%;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.menu-footer {
+  display: flex;
+  justify-content: space-between;
+}

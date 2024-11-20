@@ -1,27 +1,85 @@
-<div class="menu-display">
-  <h1>Menu</h1>
-
-  <div class="categories">
-    <button
-      *ngFor="let category of categories"
-      (click)="selectCategory(category)"
-      [class.active]="category === selectedCategory"
-    >
-      {{ category.name }}
-    </button>
-  </div>
-
-  <div class="menu-items">
-    <h2>{{ selectedCategory?.name || 'Select a Category' }}</h2>
-    <div *ngIf="selectedCategory?.items?.length; else noItems">
-      <div *ngFor="let item of selectedCategory?.items" class="menu-item">
-        <h3>{{ item.name }}</h3>
-        <p>{{ item.description }}</p>
-        <span>{{ item.price | currency }}</span>
+<div class="menu-display-container">
+  <!-- Sección izquierda: Pedido -->
+  <div class="order-section">
+    <!-- Logo -->
+    <div class="logo-section">
+      <div class="logo">LOGO</div>
+      <div class="total-summary">
+        <span>Price</span>
+        <span>QTY</span>
       </div>
     </div>
-    <ng-template #noItems>
-      <p>No items available in this category.</p>
-    </ng-template>
+
+    <!-- Lista de artículos añadidos -->
+    <div class="order-list">
+      <div *ngFor="let item of orderItems" class="order-item">
+        <div class="item-details">
+          <p class="item-name">{{ item.name }}</p>
+          <p class="item-description">{{ item.description }}</p>
+        </div>
+        <div class="item-summary">
+          <span class="item-price">{{ item.price | currency }}</span>
+          <span class="item-quantity">{{ item.quantity }}</span>
+        </div>
+        <div class="item-actions">
+          <button (click)="editItem(item)">Edit</button>
+          <button (click)="deleteItem(item)">Delete</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Notas adicionales -->
+    <div class="additional-notes">
+      <textarea
+        placeholder="Additional notes (Example: Without cheese)"
+        [(ngModel)]="orderNotes"
+      ></textarea>
+    </div>
+
+    <!-- Botones de acción -->
+    <div class="order-actions">
+      <button class="cancel-btn" (click)="cancelOrder()">Cancel</button>
+      <button class="buy-btn" (click)="confirmOrder()">Buy</button>
+    </div>
+  </div>
+
+  <!-- Sección derecha: Menú -->
+  <div class="menu-section">
+    <!-- Selección de categorías -->
+    <div class="menu-header">
+      <div class="category-name">
+        <h2>{{ selectedCategory.name }}</h2>
+      </div>
+      <div
+        *ngFor="let category of menuCategories"
+        class="menu-category"
+        [class.active]="category === selectedCategory"
+        (click)="selectCategory(category)"
+      >
+        <i class="star-icon">★</i>
+        <span>{{ category.name }}</span>
+      </div>
+    </div>
+
+    <!-- Lista de artículos del menú -->
+    <div class="menu-items">
+      <div *ngFor="let item of selectedCategory.items" class="menu-item">
+        <div class="item-card">
+          <div class="item-image"></div>
+          <div class="item-details">
+            <h3>{{ item.name }}</h3>
+            <p>{{ item.description }}</p>
+            <p>{{ item.price | currency }}</p>
+            <button class="add-item-btn" (click)="addItem(item)">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Botones auxiliares -->
+    <div class="menu-footer">
+      <button (click)="prevCategory()">PREV</button>
+      <button (click)="nextCategory()">NEXT</button>
+    </div>
   </div>
 </div>
