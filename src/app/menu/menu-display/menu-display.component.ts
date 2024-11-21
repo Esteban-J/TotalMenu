@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common'; // Importar el módulo común
 import { FormsModule } from '@angular/forms'; // Importar FormsModule para usar ngModel
-
+import { EditAddedItemComponent } from '../edit-added-item/edit-added-item.component';
+  
 // Definir la interfaz para los elementos del pedido
 interface OrderItem {
   name: string;
@@ -25,7 +26,7 @@ interface MenuCategory {
 
 @Component({
   standalone: true,
-  imports: [CommonModule, FormsModule], // Asegurarse de incluir FormsModule
+  imports: [CommonModule, FormsModule, EditAddedItemComponent ], // Asegurarse de incluir FormsModule
   selector: 'app-menu-display',
   templateUrl: './menu-display.component.html',
   styleUrls: ['./menu-display.component.css'],
@@ -51,7 +52,14 @@ export class MenuDisplayComponent {
       name: 'Desserts',
       items: [
         { name: 'IceCream', description: 'Vanilla scoop', price: 5 },
-        { name: 'Cake', description: 'Chocolate cake slice', price: 4 }
+        { name: 'Cake', description: 'Chocolate cake slice', price: 4 },
+        { name: 'Brownie', description: 'Chewy chocolate brownie', price: 3.5 },
+        { name: 'Cheesecake', description: 'Classic New York style cheesecake', price: 6 },
+        { name: 'Pudding', description: 'Creamy caramel pudding', price: 3 },
+        { name: 'Donut', description: 'Glazed donut with sprinkles', price: 2.5 },
+        { name: 'Mousse', description: 'Rich dark chocolate mousse', price: 4.5 },
+        { name: 'Tiramisu', description: 'Italian coffee-flavored dessert', price: 7 },
+        { name: 'Pie', description: 'Apple pie slice with cinnamon', price: 5.5 },
       ]
     },
     {
@@ -82,23 +90,23 @@ export class MenuDisplayComponent {
   selectCategory(category: MenuCategory) {
     this.selectedCategory = category;
   }
-  
+
   // Calcular el precio total del pedido
   get totalPrice(): number {
     return this.orderItems.reduce((total, item) => total + item.price * item.quantity, 0);
   }
-  
+
   // Calcular la cantidad total de artículos en el pedido
   get totalQuantity(): number {
     return this.orderItems.reduce((total, item) => total + item.quantity, 0);
   }
-  
+
   prevCategory() {
     const currentIndex = this.menuCategories.indexOf(this.selectedCategory);
     this.selectedCategory =
       this.menuCategories[(
         currentIndex - 1 + this.menuCategories.length) %
-        this.menuCategories.length
+      this.menuCategories.length
       ];
   }
 
@@ -111,7 +119,7 @@ export class MenuDisplayComponent {
   addItem(item: MenuItem) {
     // Buscar si el artículo ya está en el pedido
     const existingItem = this.orderItems.find(orderItem => orderItem.name === item.name);
-  
+
     if (existingItem) {
       // Incrementar la cantidad si ya existe
       existingItem.quantity += 1;
@@ -129,6 +137,28 @@ export class MenuDisplayComponent {
   editItem(item: OrderItem) {
     console.log('Editing item:', item);
   }
+
+  isEditModalOpen = false; // Controla la visibilidad de la ventana emergente
+  editingItem: OrderItem | null = null;
+
+  openEditModal(item: OrderItem) {
+    this.editingItem = { ...item }; // Crear una copia del ítem para edición
+    this.isEditModalOpen = true;
+  }
+
+  closeEditModal() {
+    this.isEditModalOpen = false;
+    this.editingItem = null;
+  }
+
+  updateItem(updatedItem: OrderItem) {
+    const index = this.orderItems.findIndex((item) => item.name === updatedItem.name);
+    if (index !== -1) {
+      this.orderItems[index] = updatedItem; // Actualizar el ítem en la lista
+    }
+    this.closeEditModal();
+  }
+
 
   deleteItem(item: OrderItem) {
     this.orderItems = this.orderItems.filter((i) => i !== item);

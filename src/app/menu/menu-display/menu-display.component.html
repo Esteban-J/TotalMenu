@@ -6,7 +6,7 @@
     <div class="logo-section">
       <div class="logo">LOGO</div>
       <div class="total-summary">
-        <span>Total Price: {{ totalPrice | currency }}</span>
+        <span>Total Price: {{ totalPrice | currency }}</span><br>
         <span>Total Quantity: {{ totalQuantity }}</span>
       </div>
     </div>
@@ -19,14 +19,22 @@
           <p class="item-description">{{ item.description }}</p>
         </div>
         <div class="item-summary">
-          <span class="item-price">{{ item.price | currency }}</span>
+          <span class="item-price">{{ item.price | currency }}</span><br>
           <span class="item-quantity">{{ item.quantity }}</span>
         </div>
         <div class="item-actions">
-          <button (click)="editItem(item)">Edit</button>
+          <button (click)="openEditModal(item)">Edit</button>
           <button (click)="deleteItem(item)">Delete</button>
         </div>
       </div>
+    </div>
+
+    <div *ngIf="isEditModalOpen && editingItem">
+      <app-edit-added-item
+        [item]="editingItem"
+        (onClose)="closeEditModal()"
+        (onSave)="updateItem($event)"
+      ></app-edit-added-item>
     </div>
 
     <!-- Notas adicionales -->
@@ -85,4 +93,7 @@
       <button (click)="nextCategory()">NEXT</button>
     </div>
   </div>
+
+  
+  
 </div>

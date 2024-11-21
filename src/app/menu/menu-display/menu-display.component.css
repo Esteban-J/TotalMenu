@@ -32,6 +32,8 @@
 
 .total-summary {
   background-color: white;
+  text-align: center;
+  /* align-items: center; */
   color: black;
   padding: 10px;
   border-radius: 5px;
@@ -144,11 +146,15 @@
   flex-grow: 1;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  /* grid-template-rows: minmax(150px, auto);  */
   gap: 10px;
   overflow-y: auto;
 }
 
+
+
 .item-card {
+  height: 350px;
   background-color: white;
   color: black;
   border-radius: 5px;
@@ -158,8 +164,8 @@
 
 .item-image {
   img {
-    width: 300px;
-    height: 200px;
+    width: 150px;
+    height: 150px;
     object-fit: cover;
     border-radius: 10px;
   }
