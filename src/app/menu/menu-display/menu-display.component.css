@@ -156,6 +156,16 @@
   text-align: center;
 }
 
+.item-image {
+  img {
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10px;
+  }
+}
+  
+
 .add-item-btn {
   background-color: #673ab7;
   color: white;

@@ -1,12 +1,13 @@
 <div class="menu-display-container">
   <!-- Sección izquierda: Pedido -->
   <div class="order-section">
-    <!-- Logo -->
+
+    <!-- Logo y Resumen -->
     <div class="logo-section">
       <div class="logo">LOGO</div>
       <div class="total-summary">
-        <span>Price</span>
-        <span>QTY</span>
+        <span>Total Price: {{ totalPrice | currency }}</span>
+        <span>Total Quantity: {{ totalQuantity }}</span>
       </div>
     </div>
 
@@ -65,7 +66,9 @@
     <div class="menu-items">
       <div *ngFor="let item of selectedCategory.items" class="menu-item">
         <div class="item-card">
-          <div class="item-image"></div>
+          <div class="item-image">
+            <img src="/{{ item.name }}.jpg" alt="{{ item.name }}" />
+          </div>
           <div class="item-details">
             <h3>{{ item.name }}</h3>
             <p>{{ item.description }}</p>

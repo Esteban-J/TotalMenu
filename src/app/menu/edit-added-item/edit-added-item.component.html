@@ -1,0 +1,33 @@
+<div class="edit-item-modal">
+    <h2>Edit Item</h2>
+    <form #editForm="ngForm" (ngSubmit)="saveChanges()">
+      <div class="form-group">
+        <label for="itemName">Name:</label>
+        <input
+          type="text"
+          id="itemName"
+          [(ngModel)]="item.name"
+          name="name"
+          required
+        />
+      </div>
+  
+      <div class="form-group">
+        <label for="itemQuantity">Quantity:</label>
+        <input
+          type="number"
+          id="itemQuantity"
+          [(ngModel)]="item.quantity"
+          name="quantity"
+          min="1"
+          required
+        />
+      </div>
+  
+      <div class="form-actions">
+        <button type="button" (click)="closeModal()">Cancel</button>
+        <button type="submit" [disabled]="editForm.invalid">Save</button>
+      </div>
+    </form>
+  </div>
+  
