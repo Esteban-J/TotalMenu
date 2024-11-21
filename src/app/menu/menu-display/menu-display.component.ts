@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common'; // Importar el módulo común
 import { FormsModule } from '@angular/forms'; // Importar FormsModule para usar ngModel
 import { EditAddedItemComponent } from '../edit-added-item/edit-added-item.component';
-  
+import { Router } from '@angular/router';
+
 // Definir la interfaz para los elementos del pedido
 interface OrderItem {
   name: string;
@@ -26,12 +27,13 @@ interface MenuCategory {
 
 @Component({
   standalone: true,
-  imports: [CommonModule, FormsModule, EditAddedItemComponent ], // Asegurarse de incluir FormsModule
+  imports: [CommonModule, FormsModule, EditAddedItemComponent], // Asegurarse de incluir FormsModule
   selector: 'app-menu-display',
   templateUrl: './menu-display.component.html',
   styleUrls: ['./menu-display.component.css'],
 })
 export class MenuDisplayComponent {
+  constructor(private router: Router) {}
   // Definir el array de items del pedido con el tipo adecuado
   orderItems: OrderItem[] = [
     { name: 'Pizza', description: 'Cheese and tomato', price: 10, quantity: 1 },
@@ -164,11 +166,19 @@ export class MenuDisplayComponent {
     this.orderItems = this.orderItems.filter((i) => i !== item);
   }
 
+  // Métodos para redirigir a la pantalla de bienvenida
   cancelOrder() {
     console.log('Order canceled');
+    this.redirectToWelcome(); // Redirigir después de cancelar
   }
 
   confirmOrder() {
     console.log('Order confirmed');
+    this.redirectToWelcome(); // Redirigir después de confirmar
+  }
+
+  // Método que realiza la redirección al componente de bienvenida
+  private redirectToWelcome() {
+    this.router.navigate(['/']); // Redirige a la ruta de bienvenida
   }
 }
