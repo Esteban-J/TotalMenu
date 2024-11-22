@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common'; // Importar el módulo común
 import { FormsModule } from '@angular/forms'; // Importar FormsModule para usar ngModel
 import { EditAddedItemComponent } from '../edit-added-item/edit-added-item.component';
+import { OrderSummaryModalComponent } from '../order-summary-modal/order-summary-modal.component';
 import { Router } from '@angular/router';
 
 // Definir la interfaz para los elementos del pedido
@@ -27,7 +28,7 @@ interface MenuCategory {
 
 @Component({
   standalone: true,
-  imports: [CommonModule, FormsModule, EditAddedItemComponent], // Asegurarse de incluir FormsModule
+  imports: [CommonModule, FormsModule, EditAddedItemComponent, OrderSummaryModalComponent], // Asegurarse de incluir FormsModule
   selector: 'app-menu-display',
   templateUrl: './menu-display.component.html',
   styleUrls: ['./menu-display.component.css'],
@@ -36,10 +37,10 @@ export class MenuDisplayComponent {
   constructor(private router: Router) {}
   // Definir el array de items del pedido con el tipo adecuado
   orderItems: OrderItem[] = [
-    { name: 'Pizza', description: 'Cheese and tomato', price: 10, quantity: 1 },
-    { name: 'Burger', description: 'Beef with lettuce', price: 8, quantity: 2 }
+   
   ];
   orderNotes = '';
+  showModal = false;
 
   // Datos iniciales para las categorías
   menuCategories: MenuCategory[] = [
@@ -151,6 +152,19 @@ export class MenuDisplayComponent {
   closeEditModal() {
     this.isEditModalOpen = false;
     this.editingItem = null;
+  }
+
+  openOrderSummary() {
+    this.showModal = true;
+  }
+
+  closeOrderSummary() {
+    this.showModal = false;
+  }
+
+  confirmAndRedirect() {
+    this.showModal = false;
+    this.redirectToWelcome(); // Redirigir después de cancelar
   }
 
   updateItem(updatedItem: OrderItem) {

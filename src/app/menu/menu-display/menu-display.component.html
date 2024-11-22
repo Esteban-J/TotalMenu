@@ -30,27 +30,24 @@
     </div>
 
     <div *ngIf="isEditModalOpen && editingItem">
-      <app-edit-added-item
-        [item]="editingItem"
-        (onClose)="closeEditModal()"
-        (onSave)="updateItem($event)"
-      ></app-edit-added-item>
+      <app-edit-added-item [item]="editingItem" (onClose)="closeEditModal()"
+        (onSave)="updateItem($event)"></app-edit-added-item>
     </div>
 
     <!-- Notas adicionales -->
     <div class="additional-notes">
-      <textarea
-        placeholder="Additional notes (Example: Without cheese)"
-        [(ngModel)]="orderNotes"
-      ></textarea>
+      <textarea placeholder="Additional notes (Example: Without cheese)" [(ngModel)]="orderNotes"></textarea>
     </div>
 
     <!-- Botones de acción -->
     <div class="order-actions">
-      <button class="cancel-btn" (click)="cancelOrder()">Cancel</button>
-      <button class="buy-btn" (click)="confirmOrder()">Buy</button>
+      <button class="cancel-btn" (click)="openOrderSummary()">Cancel</button>
+      <button class="buy-btn" (click)="openOrderSummary()">Buy</button>
     </div>
   </div>
+
+  <app-order-summary-modal *ngIf="showModal" [orderItems]="orderItems" [totalPrice]="totalPrice"
+    (onConfirm)="confirmAndRedirect()" (onCancel)="closeOrderSummary()"></app-order-summary-modal>
 
   <!-- Sección derecha: Menú -->
   <div class="menu-section">
@@ -59,12 +56,8 @@
       <div class="category-name">
         <h2>{{ selectedCategory.name }}</h2>
       </div>
-      <div
-        *ngFor="let category of menuCategories"
-        class="menu-category"
-        [class.active]="category === selectedCategory"
-        (click)="selectCategory(category)"
-      >
+      <div *ngFor="let category of menuCategories" class="menu-category" [class.active]="category === selectedCategory"
+        (click)="selectCategory(category)">
         <i class="star-icon">★</i>
         <span>{{ category.name }}</span>
       </div>
@@ -94,6 +87,6 @@
     </div>
   </div>
 
-  
-  
+
+
 </div>
