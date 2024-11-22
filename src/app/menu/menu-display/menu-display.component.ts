@@ -164,7 +164,7 @@ export class MenuDisplayComponent {
 
   confirmAndRedirect() {
     this.showModal = false;
-    this.redirectToWelcome(); // Redirigir después de cancelar
+    this.router.navigate(['/thank-you']);
   }
 
   updateItem(updatedItem: OrderItem) {
@@ -193,6 +193,6 @@ export class MenuDisplayComponent {
 
   // Método que realiza la redirección al componente de bienvenida
   private redirectToWelcome() {
-    this.router.navigate(['/']); // Redirige a la ruta de bienvenida
+    this.router.navigate(['/thank-you']); // Redirige a la ruta de bienvenida
   }
 }
